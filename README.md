@@ -25,15 +25,15 @@ type CNJArray struct {
 }
 
 ```
-**FinalData
+### FinalData
 - Id: Um identificador. É recomendado que seja associado um número de processo no formato CNJ para facilitar o cruzamento de dados
 - DocName: Nome do arquivo para ser classificado conforme o CNJ
 - CNJId: Identificador do Código CNJ específico
 - CNJIdUpper: Identificador do Código Pai do CNJ específico
 - CNJName: Classificação do CNJ
 - CnjReturn: Conjunto de dados com a estrutura ```CNJArray``` com todos os códigos CNJ encontrados
-- 
-**CNJArray
+
+### CNJArray
 - DocName: Nome do arquivo para ser classificado conforme o CNJ
 - IdItem: Identificador do Código CNJ específico
 - IdItemUpper: Identificador do Código Pai do CNJ específico
@@ -71,16 +71,16 @@ success
 
 ## Functions
 
-# Main Function:
+### Main Function:
 - DocClassifier(identifier string, fileName string)  ->  retorna uma *FinalData* necessitantando de um identificador e do nome do arquivo a ser classificado.
 
-# Suport Functions:
+### Suport Functions:
 - newName(docName string) -> retorna o nome normalizado como *string*. Para ser efetiva essa função faz uso de outras 24 funções que retornam *bool* para cada tipo de documento mapeado (apontadas abaixo)
 - SplitName(docName string) -> retorna uma *string* como o nome normalizado que deve ser pesquisado na tabela CNJ. Para normalizar o nome é utilizada a função acima.
 - findBestCNJ(docNameSplit string, dataCNJ []Structs.CNJArray) -> retorna *cnjId*, *cnjIdUppe* e *cnjName*, necessitando do nome do arquivo a ser classificado (já normalizado) e uma *CNJArray*
 - ReturnCNJ(docNameSplit string, data []Structs.DocumentCNJ) -> retorna uma *CNJArray*, *BestCNJ*(faz uso da função mencionada acima) e *status*, necessitantando do nome do arquivo a ser classificado e o conjunto de dados do CNJ. 
 
-# Define Docment Functions:
+### Define Docment Functions:
 - IsAssetsToPledge(docName string)       ->  retorna true para um documento *Pedido de Penhora*
 - IsBacen(docName string)                ->  retorna true para um documento *Sisbajud*
 - IsCertificate(docName string)          ->  retorna true para um documento *Certidão*
