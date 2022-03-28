@@ -6,13 +6,11 @@ import (
 	"github.com/Darklabel91/LegalDoc_Classifier/Structs"
 )
 
-const pathCNJ = "https://github.com/Darklabel91/LegalDoc_Classifier/blob/b03b0a77125d9f25c0033458994fd3cd7fbc4cf3/Database/DataCNJ.csv"
-
 func DocClassifier(identifier string, fileName string) (Structs.FinalData, string) {
 	var dataClassified Structs.FinalData
 	var status string
 
-	dataCNJ := CSV.ReadCSVcnj(pathCNJ)
+	dataCNJ := CSV.ReadCSVcnj("Database/DataCNJ.csv")
 	docName := Functions.SplitName(fileName)
 	cnjReturn, cnjId, cnjIdUpper, cnjFirst, flag := Functions.ReturnCNJ(docName, dataCNJ)
 
