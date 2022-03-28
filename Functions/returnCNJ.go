@@ -16,10 +16,10 @@ func ReturnCNJ(docNameSplit string, data []Structs.DocumentCNJ) ([]Structs.CNJAr
 		if strings.Contains(strings.ToLower(docNameSplit), strings.ToLower(data[i].Name)) {
 
 			dataCNJ = append(dataCNJ, Structs.CNJArray{
-				Doc_name:      docNameSplit,
-				Id_item:       data[i].Id_item,
-				Id_item_upper: data[i].Id_item_upper,
-				Name:          data[i].Name,
+				DocName:     docNameSplit,
+				IdItem:      data[i].IdItem,
+				IdItemUpper: data[i].IdItemUpper,
+				Name:        data[i].Name,
 			})
 
 			flag = true

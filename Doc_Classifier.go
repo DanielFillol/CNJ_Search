@@ -1,7 +1,7 @@
-package LegalDoc_Classifier
+package main
 
 import (
-	"github.com/Darklabel91/LegalDoc_Classifier/CSV"
+	"github.com/Darklabel91/LegalDoc_Classifier/Database"
 	"github.com/Darklabel91/LegalDoc_Classifier/Functions"
 	"github.com/Darklabel91/LegalDoc_Classifier/Structs"
 )
@@ -10,7 +10,7 @@ func DocClassifier(identifier string, fileName string) (Structs.FinalData, strin
 	var dataClassified Structs.FinalData
 	var status string
 
-	dataCNJ := CSV.ReadCSVcnj("Database/DataCNJ.csv")
+	dataCNJ := Database.DataSetCNJ()
 	docName := Functions.SplitName(fileName)
 	cnjReturn, cnjId, cnjIdUpper, cnjFirst, flag := Functions.ReturnCNJ(docName, dataCNJ)
 
@@ -21,12 +21,12 @@ func DocClassifier(identifier string, fileName string) (Structs.FinalData, strin
 	}
 
 	dataClassified = Structs.FinalData{
-		Id:           identifier,
-		Doc_name:     fileName,
-		CNJ_id:       cnjId,
-		CNJ_id_upper: cnjIdUpper,
-		CNJname:      cnjFirst,
-		CnjReturn:    cnjReturn,
+		Id:         identifier,
+		DocName:    fileName,
+		CNJId:      cnjId,
+		CNJIdUpper: cnjIdUpper,
+		CNJName:    cnjFirst,
+		CnjReturn:  cnjReturn,
 	}
 
 	return dataClassified, status

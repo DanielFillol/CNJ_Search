@@ -14,22 +14,22 @@ func findBestCNJ(docNameSplit string, dataCNJ []Structs.CNJArray) (string, strin
 		for i := 0; i < len(dataCNJ); i++ {
 			if strings.ToLower(dataCNJ[i].Name) == strings.ToLower(docNameSplit) {
 
-				cnjId = dataCNJ[i].Id_item
-				cnjIdUpper = dataCNJ[i].Id_item_upper
+				cnjId = dataCNJ[i].IdItem
+				cnjIdUpper = dataCNJ[i].IdItemUpper
 				cnjName = dataCNJ[i].Name
 
 			} else {
 
-				if dataCNJ[i].Id_item_upper == "1" || dataCNJ[i].Id_item_upper == "3" || dataCNJ[i].Id_item_upper == "4" || dataCNJ[i].Id_item_upper == "5" || dataCNJ[i].Id_item_upper == "6" {
+				if dataCNJ[i].IdItemUpper == "1" || dataCNJ[i].IdItemUpper == "3" || dataCNJ[i].IdItemUpper == "4" || dataCNJ[i].IdItemUpper == "5" || dataCNJ[i].IdItemUpper == "6" {
 
-					cnjId = dataCNJ[i].Id_item
-					cnjIdUpper = dataCNJ[i].Id_item_upper
+					cnjId = dataCNJ[i].IdItem
+					cnjIdUpper = dataCNJ[i].IdItemUpper
 					cnjName = dataCNJ[i].Name
 
 				} else {
 
-					cnjId = dataCNJ[0].Id_item
-					cnjIdUpper = dataCNJ[0].Id_item_upper
+					cnjId = dataCNJ[0].IdItem
+					cnjIdUpper = dataCNJ[0].IdItemUpper
 					cnjName = dataCNJ[0].Name
 
 				}
@@ -38,8 +38,8 @@ func findBestCNJ(docNameSplit string, dataCNJ []Structs.CNJArray) (string, strin
 
 	} else {
 
-		cnjId = dataCNJ[0].Id_item
-		cnjIdUpper = dataCNJ[0].Id_item_upper
+		cnjId = dataCNJ[0].IdItem
+		cnjIdUpper = dataCNJ[0].IdItemUpper
 		cnjName = dataCNJ[0].Name
 
 	}
