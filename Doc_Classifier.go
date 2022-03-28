@@ -1,4 +1,4 @@
-package main
+package LegalDoc_Classifier
 
 import (
 	"github.com/Darklabel91/LegalDoc_Classifier/Database"
