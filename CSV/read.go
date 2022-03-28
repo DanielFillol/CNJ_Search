@@ -13,7 +13,10 @@ func ReadCSVcnj(filePath string) []Structs.DocumentCNJ {
 	csvFile, err := os.Open(filePath)
 	Error.CheckError(err)
 
-	defer csvFile.Close()
+	defer func(csvFile *os.File) {
+		err0 := csvFile.Close()
+		Error.CheckError(err0)
+	}(csvFile)
 
 	csvLines, err1 := csv.NewReader(csvFile).ReadAll()
 	Error.CheckError(err1)
