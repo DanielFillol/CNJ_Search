@@ -6,7 +6,7 @@ import (
 	"github.com/Darklabel91/LegalDoc_Classifier/Structs"
 )
 
-const pathCNJ = "Database/DataCNJ.csv"
+const pathCNJ = "https://github.com/Darklabel91/LegalDoc_Classifier/blob/b03b0a77125d9f25c0033458994fd3cd7fbc4cf3/Database/DataCNJ.csv"
 
 func DocClassifier(identifier string, fileName string) (Structs.FinalData, string) {
 	var dataClassified Structs.FinalData
