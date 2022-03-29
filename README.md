@@ -75,6 +75,8 @@ Retorno
 success
 0 Petição Inicial.pdf 37 3 Petição
 [{Petição Inicial.pdf 37 3 Petição} {Petição Inicial.pdf 202 37 Petição Inicial}]
+Files created
+
  ```
 
 ## Functions
