@@ -6,6 +6,11 @@ type DocumentCNJ struct {
 	Name        string
 }
 
+type RawDocument struct {
+	IdItem string
+	Name   string
+}
+
 type FinalData struct {
 	Id         string
 	DocName    string

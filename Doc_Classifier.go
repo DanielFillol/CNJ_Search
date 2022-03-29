@@ -1,6 +1,8 @@
 package LegalDoc_Classifier
 
 import (
+	"fmt"
+	"github.com/Darklabel91/LegalDoc_Classifier/CSV"
 	"github.com/Darklabel91/LegalDoc_Classifier/Database"
 	"github.com/Darklabel91/LegalDoc_Classifier/Functions"
 	"github.com/Darklabel91/LegalDoc_Classifier/Structs"
@@ -30,4 +32,32 @@ func DocClassifier(identifier string, fileName string) (Structs.FinalData, strin
 	}
 
 	return dataClassified, status
+}
+
+func DocClassifierCSV(rawFilePath string, separator rune, nameResultFolder string) {
+	raw := CSV.ReadCsvFile(rawFilePath, separator)
+	createCSVs(raw, nameResultFolder)
+	fmt.Println("Files created")
+}
+
+func createCSVs(raw []Structs.RawDocument, nameResultFolder string) {
+	var filesOK []Structs.FinalData
+	var filesError []Structs.FinalData
+
+	for i := 0; i < len(raw); i++ {
+		emp, status := DocClassifier(raw[i].IdItem, raw[i].Name)
+		if status == "success" {
+			filesOK = append(filesOK, emp)
+		} else {
+			filesError = append(filesError, emp)
+		}
+	}
+
+	if len(filesOK) != 0 {
+		CSV.ExportCSV("filesOK", nameResultFolder, filesOK)
+	}
+
+	if len(filesError) != 0 {
+		CSV.ExportCSV("filesError", nameResultFolder, filesError)
+	}
 }
