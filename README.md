@@ -60,6 +60,14 @@ func main() {
 	fmt.Println(status)
 	fmt.Println(test.Id, test.DocName, test.CNJId, test.CNJIdUpper, test.CNJName)
 	fmt.Println(test.CnjReturn)
+	
+	//READING A CSV WITH SUMMARY'S
+
+	rawPath := "/Users/Desktop/tjFiles.csv"
+	separator := ','
+	resultFolder := "Result"
+	
+	LegalDoc_Classifier.DocClassifierCSV(rawPath, separator, resultFolder)
 }
  ```
 Retorno
@@ -73,7 +81,10 @@ success
 
 ### Main Function:
 - DocClassifier(identifier string, fileName string)  ->  retorna uma *FinalData* necessitantando de um identificador e do nome do arquivo a ser classificado.
-
+- DocClassifierCSV(rawFilePath string, separator rune, nameResultFolder string) -> retorna dois arquivos .CSV
+ necessitando apenas do caminho do arquivo a ser analisado, o separador (';' ',' etc..) de colunas e o nome da pasta em que os resultados devem ser salvos.
+ O arquivo a ser analisado deve ter duas colunas {id, fileName}
+ 
 ### Suport Functions:
 - newName(docName string) -> retorna o nome normalizado como *string*. Para ser efetiva essa função faz uso de outras 24 funções que retornam *bool* para cada tipo de documento mapeado (apontadas abaixo)
 - SplitName(docName string) -> retorna uma *string* como o nome normalizado que deve ser pesquisado na tabela CNJ. Para normalizar o nome é utilizada a função acima.
