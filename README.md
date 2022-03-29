@@ -61,7 +61,7 @@ func main() {
 	fmt.Println(test.Id, test.DocName, test.CNJId, test.CNJIdUpper, test.CNJName)
 	fmt.Println(test.CnjReturn)
 	
-	//READING A CSV WITH SUMMARY'S
+	//READING A CSV WITH FILE NAMES
 
 	rawPath := "/Users/Desktop/tjFiles.csv"
 	separator := ','
