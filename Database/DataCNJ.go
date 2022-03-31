@@ -2,7 +2,7 @@ package Database
 
 import "github.com/Darklabel91/LegalDoc_Classifier/Structs"
 
-func DataSetCNJ() []Structs.DocumentCNJ {
+func DataSetCNJDocument() []Structs.DocumentCNJ {
 	var DocumentCNJ []Structs.DocumentCNJ
 	DocumentCNJ = append(DocumentCNJ,
 		Structs.DocumentCNJ{"cod_item", "cod_item_pai", "nome"},

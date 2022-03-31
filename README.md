@@ -1,11 +1,11 @@
 # LegalDoc_Classifier
-Projeto pensado para classificar as títulos de documentos dos Tribunais de Justiça brasileiro conforme a padronização CNJ de classificação
+Projeto pensado para classificar tipos de documentos dos Tribunais de Justiça brasileiro conforme a padronização CNJ de classificação. Além disso também permite a pesquisa de qualquer texto com a tabela de assuntos na padronização CNJ.
 
 ## Instal
 ``` go get -u github.com/Darklabel91/LegalDoc_Classifier ```
 
 ## Data Struct
-Os dados de retorno podem ser ```bool```, ```string```, ```FinalData``` ou ```CNJArray```, essa última é composta por:
+Os dados de retorno podem ser ```bool```, ```string```, ```FinalData``` ou ```CNJArray```, essas últimas são compostas por:
 
 ``` 
 type FinalData struct {
@@ -40,6 +40,11 @@ type CNJArray struct {
 - Name: Classificação do CNJ
 
 
+### searchType
+searchType é um número inteiro passado para as funções *main* com o objetivo de selecionar qual tabela será pesquisada sendo:
+- 0 -> tabela CNJ de Documentos
+- 1 0> tabela CNJ de Assuntos
+
 ## Example
 
 ``` 
@@ -51,23 +56,27 @@ import (
 )
 
 func main() {
-
+	// searchType: 0 for Document search and 1 for subject search
+	var searchType int 
+	
 	id := "0"
 	fileName := "Petição Inicial.pdf"
+	searchType = 0
 
-	test, status := LegalDoc_Classifier.DocClassifier(id, fileName)
+	test, status := LegalDoc_Classifier.DocClassifier(id, fileName, searchType)
 
 	fmt.Println(status)
-	fmt.Println(test.Id, test.DocName, test.CNJId, test.CNJIdUpper, test.CNJName)
+	fmt.Println(test.Id, test.SearchName, test.CNJId, test.CNJIdUpper, test.CNJName)
 	fmt.Println(test.CnjReturn)
-	
+
 	//READING A CSV WITH FILE NAMES
 
 	rawPath := "/Users/Desktop/tjFiles.csv"
 	separator := ','
 	resultFolder := "Result"
-	
-	LegalDoc_Classifier.DocClassifierCSV(rawPath, separator, resultFolder)
+	searchType = 0
+
+	LegalDoc_Classifier.DocClassifierCSV(rawPath, separator, resultFolder, searchType)
 }
  ```
 Retorno
@@ -82,10 +91,10 @@ Files created
 ## Functions
 
 ### Main Function:
-- DocClassifier(identifier string, fileName string)  ->  retorna uma *FinalData* necessitantando de um identificador e do nome do arquivo a ser classificado.
-- DocClassifierCSV(rawFilePath string, separator rune, nameResultFolder string) -> retorna dois arquivos .CSV
- necessitando apenas do caminho do arquivo a ser analisado, o separador (';' ',' etc..) de colunas e o nome da pasta em que os resultados devem ser salvos.
- O arquivo a ser analisado deve ter duas colunas {id, fileName}
+- DocClassifier(identifier string, fileName string, searchType int)  ->  retorna uma *FinalData* necessitantando de um identificador, do nome do arquivo a ser classificado e do tipo *searchType*
+- DocClassifierCSV(rawFilePath string, separator rune, nameResultFolder string, searchType int) -> retorna dois arquivos .CSV
+ necessitando apenas do caminho do arquivo a ser analisado, o separador (';' ',' etc..) de colunas, o nome da pasta em que os resultados devem ser salvos e do tipo *searchType*
+ O arquivo a ser analisado deve ter duas colunas {id, fileName/SearchString}
  
 ### Suport Functions:
 - newName(docName string) -> retorna o nome normalizado como *string*. Para ser efetiva essa função faz uso de outras 24 funções que retornam *bool* para cada tipo de documento mapeado (apontadas abaixo)

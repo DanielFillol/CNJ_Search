@@ -13,7 +13,7 @@ type RawDocument struct {
 
 type FinalData struct {
 	Id         string
-	DocName    string
+	SearchName string
 	CNJId      string
 	CNJIdUpper string
 	CNJName    string
@@ -21,7 +21,7 @@ type FinalData struct {
 }
 
 type CNJArray struct {
-	DocName     string
+	SearchName  string
 	IdItem      string
 	IdItemUpper string
 	Name        string

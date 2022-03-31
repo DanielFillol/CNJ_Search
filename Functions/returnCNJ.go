@@ -16,7 +16,7 @@ func ReturnCNJ(docNameSplit string, data []Structs.DocumentCNJ) ([]Structs.CNJAr
 		if strings.Contains(strings.ToLower(docNameSplit), strings.ToLower(data[i].Name)) {
 
 			dataCNJ = append(dataCNJ, Structs.CNJArray{
-				DocName:     docNameSplit,
+				SearchName:  docNameSplit,
 				IdItem:      data[i].IdItem,
 				IdItemUpper: data[i].IdItemUpper,
 				Name:        data[i].Name,
@@ -26,7 +26,7 @@ func ReturnCNJ(docNameSplit string, data []Structs.DocumentCNJ) ([]Structs.CNJAr
 		}
 	}
 	if flag == true {
-		cnjId, cnjIdUpper, cnjName = findBestCNJ(docNameSplit, dataCNJ)
+		cnjId, cnjIdUpper, cnjName = findBestCNJDocument(docNameSplit, dataCNJ)
 	} else {
 		cnjId, cnjIdUpper, cnjName = "", "", ""
 	}

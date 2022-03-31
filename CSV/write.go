@@ -28,7 +28,7 @@ func ExportCSV(nameFile string, nameFolder string, result []Structs.FinalData) {
 			cnjReturn += "{" + dataCNJ[j].IdItem + dataCNJ[j].IdItemUpper + dataCNJ[j].Name + "} "
 		}
 
-		final := []string{result[i].Id, result[i].DocName, result[i].CNJId, result[i].CNJIdUpper, result[i].CNJName, cnjReturn}
+		final := []string{result[i].Id, result[i].SearchName, result[i].CNJId, result[i].CNJIdUpper, result[i].CNJName, cnjReturn}
 		empData = append(empData, final)
 	}
 
