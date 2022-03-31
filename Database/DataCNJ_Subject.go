@@ -5,7 +5,7 @@ import "github.com/Darklabel91/LegalDoc_Classifier/Structs"
 func DataSetCNJsubject() []Structs.DocumentCNJ {
 	var sujectCNJ []Structs.DocumentCNJ
 	sujectCNJ = append(sujectCNJ,
-		Structs.DocumentCNJ{"cod_item", "cod_item_pai", "nome"},
+		//Structs.DocumentCNJ{"cod_item", "cod_item_pai", "nome"},
 		Structs.DocumentCNJ{"14", "NULL", "DIREITO TRIBUTÁRIO"},
 		Structs.DocumentCNJ{"195", "NULL", "DIREITO PREVIDENCIÁRIO"},
 		Structs.DocumentCNJ{"287", "NULL", "DIREITO PENAL"},
