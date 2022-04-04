@@ -43,7 +43,7 @@ type CNJArray struct {
 ### searchType
 searchType é um número inteiro passado para as funções *main* com o objetivo de selecionar qual tabela será pesquisada sendo:
 - 0 -> tabela CNJ de Documentos
-- 1 0> tabela CNJ de Assuntos
+- 1 -> tabela CNJ de Assuntos
 
 ## Example
 
