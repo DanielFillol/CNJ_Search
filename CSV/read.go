@@ -2,33 +2,35 @@ package CSV
 
 import (
 	"encoding/csv"
-	"github.com/Darklabel91/LegalDoc_Classifier/Error"
 	"github.com/Darklabel91/LegalDoc_Classifier/Structs"
 	"os"
 )
 
-func ReadCsvFile(filePath string, separator rune) []Structs.RawDocument {
-	var data2 []Structs.RawDocument
-
+func ReadCsvFile(filePath string, separator rune) ([]Structs.RawDocument, error) {
 	csvFile, err := os.Open(filePath)
-	Error.CheckError(err)
+	if err != nil {
+		return []Structs.RawDocument{}, err
+	}
 
-	defer func(csvFile *os.File) {
-		err0 := csvFile.Close()
-		Error.CheckError(err0)
-	}(csvFile)
+	defer csvFile.Close()
 
-	csvLines := csv.NewReader(csvFile)
-	csvLines.Comma = separator
-	csvData, err1 := csvLines.ReadAll()
-	Error.CheckError(err1)
+	csvR := csv.NewReader(csvFile)
+	csvR.Comma = separator
+
+	csvData, err := csvR.ReadAll()
+	if err != nil {
+		return []Structs.RawDocument{}, err
+	}
+
+	var data []Structs.RawDocument
 
 	for _, line := range csvData {
-		emp := Structs.RawDocument{
+		newData := Structs.RawDocument{
 			IdItem: line[0],
 			Name:   line[1],
 		}
-		data2 = append(data2, emp)
+		data = append(data, newData)
 	}
-	return data2
+
+	return data, nil
 }

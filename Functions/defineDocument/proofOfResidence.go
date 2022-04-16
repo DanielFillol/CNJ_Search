@@ -3,23 +3,17 @@ package defineDocument
 import "strings"
 
 func IsProofOfResidence(docName string) bool {
-	var exemple []string
-
-	flag := false
-	text := strings.ToLower(docName)
-	exemple = append(exemple, "endereço localizado",
+	example := []string{
+		"endereço localizado",
 		"endereço apresentação",
 		"endereço",
-	)
+	}
 
-	total := len(exemple)
-
-	for i := 0; i < total; i++ {
-		if strings.Contains(text, exemple[i]) {
-			flag = true
+	for _, total := range example {
+		if strings.Contains(strings.ToLower(docName), total) {
+			return true
 		}
 	}
 
-	return flag
-
+	return false
 }

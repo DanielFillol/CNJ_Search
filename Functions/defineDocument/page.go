@@ -3,19 +3,18 @@ package defineDocument
 import "strings"
 
 func IsPage(docName string) bool {
-	var exemple []string
+	example := []string{
+		"páginas",
+		"página",
+		"paginas",
+		"pagina",
+	}
 
-	flag := false
-	text := strings.ToLower(docName)
-	exemple = append(exemple, "páginas", "página", "paginas", "pagina")
-
-	total := len(exemple)
-
-	for i := 0; i < total; i++ {
-		if strings.Contains(text, exemple[i]) {
-			flag = true
+	for _, total := range example {
+		if strings.Contains(strings.ToLower(docName), total) {
+			return true
 		}
 	}
 
-	return flag
+	return false
 }

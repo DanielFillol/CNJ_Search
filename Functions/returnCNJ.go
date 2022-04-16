@@ -6,30 +6,23 @@ import (
 )
 
 func ReturnCNJ(docNameSplit string, data []Structs.DocumentCNJ) ([]Structs.CNJArray, string, string, string, bool) {
-	var dataCNJ []Structs.CNJArray
-	var cnjId string
-	var cnjIdUpper string
-	var cnjName string
-	flag := false
 
-	for i := 0; i < len(data); i++ {
-		if strings.Contains(strings.ToLower(docNameSplit), strings.ToLower(data[i].Name)) {
+	var dataCNJ []Structs.CNJArray
+	for _, singleData := range data {
+		if strings.Contains(strings.ToLower(docNameSplit), strings.ToLower(singleData.Name)) {
 
 			dataCNJ = append(dataCNJ, Structs.CNJArray{
 				SearchName:  docNameSplit,
-				IdItem:      data[i].IdItem,
-				IdItemUpper: data[i].IdItemUpper,
-				Name:        data[i].Name,
+				IdItem:      singleData.IdItem,
+				IdItemUpper: singleData.IdItemUpper,
+				Name:        singleData.Name,
 			})
 
-			flag = true
+			cnjId, cnjIdUpper, cnjName := findBestCNJDocument(docNameSplit, dataCNJ)
+
+			return dataCNJ, cnjId, cnjIdUpper, cnjName, true
 		}
 	}
-	if flag == true {
-		cnjId, cnjIdUpper, cnjName = findBestCNJDocument(docNameSplit, dataCNJ)
-	} else {
-		cnjId, cnjIdUpper, cnjName = "", "", ""
-	}
 
-	return dataCNJ, cnjId, cnjIdUpper, cnjName, flag
+	return []Structs.CNJArray{}, "", "", "", false
 }

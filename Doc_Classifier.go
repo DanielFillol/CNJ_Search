@@ -44,13 +44,20 @@ func DocClassifier(identifier string, searchString string, searchType int) (Stru
 	return dataClassified, status
 }
 
-func DocClassifierCSV(rawFilePath string, separator rune, nameResultFolder string, searchType int) {
-	raw := CSV.ReadCsvFile(rawFilePath, separator)
-	createCSVs(raw, nameResultFolder, searchType)
+func DocClassifierCSV(rawFilePath string, separator rune, nameResultFolder string, searchType int) error {
+	raw, err := CSV.ReadCsvFile(rawFilePath, separator)
+	if err != nil {
+		return err
+	}
+	err = createCSVs(raw, nameResultFolder, searchType)
+	if err != nil {
+		return err
+	}
 	fmt.Println("Files created")
+	return nil
 }
 
-func createCSVs(raw []Structs.RawDocument, nameResultFolder string, searchType int) {
+func createCSVs(raw []Structs.RawDocument, nameResultFolder string, searchType int) error {
 	var filesOK []Structs.FinalData
 	var filesError []Structs.FinalData
 
@@ -64,10 +71,18 @@ func createCSVs(raw []Structs.RawDocument, nameResultFolder string, searchType i
 	}
 
 	if len(filesOK) != 0 {
-		CSV.ExportCSV("filesOK", nameResultFolder, filesOK)
+		err := CSV.ExportCSV("filesOK", nameResultFolder, filesOK)
+		if err != nil {
+			return err
+		}
 	}
 
 	if len(filesError) != 0 {
-		CSV.ExportCSV("filesError", nameResultFolder, filesError)
+		err := CSV.ExportCSV("filesError", nameResultFolder, filesError)
+		if err != nil {
+			return err
+		}
 	}
+
+	return nil
 }

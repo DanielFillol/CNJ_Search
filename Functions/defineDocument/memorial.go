@@ -3,19 +3,15 @@ package defineDocument
 import "strings"
 
 func IsMemorial(docName string) bool {
-	var exemple []string
+	example := []string{
+		"memorial",
+	}
 
-	flag := false
-	text := strings.ToLower(docName)
-	exemple = append(exemple, "memorial")
-
-	total := len(exemple)
-
-	for i := 0; i < total; i++ {
-		if strings.Contains(text, exemple[i]) {
-			flag = true
+	for _, total := range example {
+		if strings.Contains(strings.ToLower(docName), total) {
+			return true
 		}
 	}
 
-	return flag
+	return false
 }

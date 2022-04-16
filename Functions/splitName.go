@@ -6,9 +6,9 @@ import (
 )
 
 func SplitName(docName string) string {
-	var returnText string
 	text := strings.Split(docName, "- ")
 
+	var returnText string
 	if len(text) > 1 {
 		text1 := strings.Split(text[1], ".")
 		if len(text1) > 1 {

@@ -3,20 +3,15 @@ package defineDocument
 import "strings"
 
 func IsDiverseMiddleRequest(docName string) bool {
-	var exemple []string
+	example := []string{
+		"petições intermediárias diversas",
+	}
 
-	flag := false
-	text := strings.ToLower(docName)
-	exemple = append(exemple, "petições intermediárias diversas")
-
-	total := len(exemple)
-
-	for i := 0; i < total; i++ {
-		if strings.Contains(text, exemple[i]) {
-			flag = true
+	for _, total := range example {
+		if strings.Contains(strings.ToLower(docName), total) {
+			return true
 		}
 	}
 
-	return flag
-
+	return false
 }
