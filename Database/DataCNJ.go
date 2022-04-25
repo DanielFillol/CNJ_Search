@@ -1,9 +1,13 @@
 package Database
 
-import "github.com/Darklabel91/LegalDoc_Classifier/Structs"
+type CNJ struct {
+	IdItem      string `json:"IdItem,omitempty"`
+	IdItemUpper string `json:"IdItemUpper,omitempty"`
+	Name        string `json:"Name,omitempty"`
+}
 
-func DataSetCNJDocument() []Structs.DocumentCNJ {
-	return []Structs.DocumentCNJ{
+func DataSetCNJDocument() []CNJ {
+	return []CNJ{
 		//{"cod_item", "cod_item_pai", "nome"},
 		{"1", "NULL", "Externos"},
 		{"2", "NULL", "Internos"},

@@ -2,14 +2,15 @@ package CSV
 
 import (
 	"encoding/csv"
-	"github.com/Darklabel91/LegalDoc_Classifier/Structs"
 	"os"
 )
 
-func ReadCsvFile(filePath string, separator rune) ([]Structs.RawDocument, error) {
+//ReadCsvFile reads a csv file from a given path
+// the csv must contain only one colum with the cnj number and no header
+func readCsvFile(filePath string, separator rune) ([]string, error) {
 	csvFile, err := os.Open(filePath)
 	if err != nil {
-		return []Structs.RawDocument{}, err
+		return nil, err
 	}
 
 	defer csvFile.Close()
@@ -19,17 +20,13 @@ func ReadCsvFile(filePath string, separator rune) ([]Structs.RawDocument, error)
 
 	csvData, err := csvR.ReadAll()
 	if err != nil {
-		return []Structs.RawDocument{}, err
+		return nil, err
 	}
 
-	var data []Structs.RawDocument
-
+	var data []string
 	for _, line := range csvData {
-		newData := Structs.RawDocument{
-			IdItem: line[0],
-			Name:   line[1],
-		}
-		data = append(data, newData)
+		newLine := line[0]
+		data = append(data, newLine)
 	}
 
 	return data, nil

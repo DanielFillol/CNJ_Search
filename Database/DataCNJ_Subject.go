@@ -1,9 +1,7 @@
 package Database
 
-import "github.com/Darklabel91/LegalDoc_Classifier/Structs"
-
-func DataSetCNJsubject() []Structs.DocumentCNJ {
-	return []Structs.DocumentCNJ{
+func DataSetCNJsubject() []CNJ {
+	return []CNJ{
 		//{"cod_item", "cod_item_pai", "nome"}
 		{"14", "NULL", "DIREITO TRIBUTÁRIO"},
 		{"195", "NULL", "DIREITO PREVIDENCIÁRIO"},
