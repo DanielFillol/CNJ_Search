@@ -57,8 +57,8 @@ import (
 
 func main() {
 	// searchType: 0 for Document search and 1 for subject search
-	var searchType int 
-	
+	var searchType int
+
 	id := "0"
 	fileName := "Petição Inicial.pdf"
 	searchType = 0
@@ -76,8 +76,12 @@ func main() {
 	resultFolder := "Result"
 	searchType = 0
 
-	LegalDoc_Classifier.DocClassifierCSV(rawPath, separator, resultFolder, searchType)
+	err := LegalDoc_Classifier.DocClassifierCSV(rawPath, separator, resultFolder, searchType)
+	if err != nil {
+		fmt.Println(err)
+	}
 }
+
  ```
 Retorno
 ``` 
