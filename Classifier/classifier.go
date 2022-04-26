@@ -1,5 +1,7 @@
 package Classifier
 
+import "strings"
+
 type FinalData struct {
 	SearchName string `json:"SearchName,omitempty"`
 	CNJId      string `json:"CNJId,omitempty"`
@@ -19,17 +21,16 @@ type CNJ struct {
 	Name        string `json:"Name,omitempty"`
 }
 
-func LegalDocument(docName string) (FinalData, error) {
+func SearchCNJ(searchString string, searchType int) (FinalData, error) {
+	nlzDocName := normalizeDocName(strings.TrimSpace(searchString))
 
-	nlzDocName := normalizeDocName(docName)
-
-	foundCnj, err := getCNJ(nlzDocName)
+	foundCnj, err := getCNJDocument(nlzDocName, searchType)
 	if err != nil {
 		return FinalData{}, err
 	}
 
 	return FinalData{
-		SearchName: docName,
+		SearchName: searchString,
 		CNJId:      foundCnj.BestCNJ.IdItem,
 		CNJIdUpper: foundCnj.BestCNJ.IdItemUpper,
 		CNJName:    foundCnj.BestCNJ.Name,

@@ -6,12 +6,22 @@ import (
 	"strings"
 )
 
-func getCNJ(normalizedDocName string) (FoundCNJ, error) {
-	dataCNJ := Database.DataSetCNJDocument()
+//getCNJDocument returns FoundCNJ for a search string.
+//  searchType must be 0 or 1
+//	0: searches the document cnj table
+//  1: searches the subject cnj table
+func getCNJDocument(normalizedSearchName string, searchType int) (FoundCNJ, error) {
+
+	var dataCNJ []Database.CNJ
+	if searchType != 1 {
+		dataCNJ = Database.DataSetCNJDocument()
+	} else {
+		dataCNJ = Database.DataSetCNJsubject()
+	}
 
 	var foundCNJ []CNJ
 	for _, singleCNJ := range dataCNJ {
-		if strings.Contains(strings.ToLower(normalizedDocName), strings.ToLower(singleCNJ.Name)) {
+		if strings.Contains(strings.ToLower(normalizedSearchName), strings.ToLower(singleCNJ.Name)) {
 			foundCNJ = append(foundCNJ, CNJ{
 				IdItem:      singleCNJ.IdItem,
 				IdItemUpper: singleCNJ.IdItemUpper,
@@ -21,7 +31,7 @@ func getCNJ(normalizedDocName string) (FoundCNJ, error) {
 	}
 
 	if len(foundCNJ) != 0 {
-		bestCNJ := getBestCNJ(normalizedDocName, foundCNJ)
+		bestCNJ := getBestCNJ(normalizedSearchName, foundCNJ)
 		return FoundCNJ{
 			BestCNJ: bestCNJ,
 			CNJs:    foundCNJ,
@@ -31,9 +41,10 @@ func getCNJ(normalizedDocName string) (FoundCNJ, error) {
 	}
 }
 
-func getBestCNJ(normalizedDocName string, foundCNJs []CNJ) CNJ {
+//getBestCNJ returns a single CNJ with the best match for the search string
+func getBestCNJ(normalizedSearchName string, foundCNJs []CNJ) CNJ {
 	for _, cnj := range foundCNJs {
-		if strings.ToLower(cnj.Name) == strings.ToLower(normalizedDocName) {
+		if strings.ToLower(cnj.Name) == strings.ToLower(normalizedSearchName) {
 			return CNJ{
 				IdItem:      cnj.IdItem,
 				IdItemUpper: cnj.IdItemUpper,

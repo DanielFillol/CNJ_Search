@@ -7,9 +7,10 @@ import (
 	"testing"
 )
 
-func TestLegalDocument(t *testing.T) {
+func TestSearchCNJ(t *testing.T) {
 	type args struct {
-		docName string
+		searchString string
+		searchType   int
 	}
 	tests := []struct {
 		name    string
@@ -21,13 +22,13 @@ func TestLegalDocument(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, err := Classifier.LegalDocument(tt.args.docName)
+			got, err := Classifier.SearchCNJ(tt.args.searchString, tt.args.searchType)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("LegalDocument() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("SearchCNJ() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("LegalDocument() got = %v, want %v", got, tt.want)
+				t.Errorf("SearchCNJ() got = %v, want %v", got, tt.want)
 			}
 		})
 	}
@@ -38,6 +39,7 @@ func TestLegalDocumentCSV(t *testing.T) {
 		rawFilePath      string
 		separator        rune
 		nameResultFolder string
+		searchType       int
 	}
 	tests := []struct {
 		name    string
@@ -48,7 +50,7 @@ func TestLegalDocumentCSV(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if err := CSV.LegalDocumentCSV(tt.args.rawFilePath, tt.args.separator, tt.args.nameResultFolder); (err != nil) != tt.wantErr {
+			if err := CSV.LegalDocumentCSV(tt.args.rawFilePath, tt.args.separator, tt.args.nameResultFolder, tt.args.searchType); (err != nil) != tt.wantErr {
 				t.Errorf("LegalDocumentCSV() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})

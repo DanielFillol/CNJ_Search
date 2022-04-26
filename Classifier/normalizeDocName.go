@@ -1,6 +1,8 @@
 package Classifier
 
-import "strings"
+import (
+	"strings"
+)
 
 const (
 	InitialRequest       = "Petição Inicial"
@@ -33,8 +35,8 @@ func normalizeDocName(docName string) string {
 	nmlzName := getNormalizeName(docName)
 
 	if pageAndNotInitial(nmlzName) {
-		splName := strings.Split(docName, "- ")
-		return getNormalizeName(splName[0])
+		splName := strings.Split(docName, "-")
+		return getNormalizeName(strings.TrimSpace(splName[0]))
 	} else {
 		return nmlzName
 	}
@@ -50,16 +52,18 @@ func pageAndNotInitial(spltName string) bool {
 
 //Split the doc name and normalize the file using nameNormalized
 func getNormalizeName(name string) string {
-	splName := strings.Split(name, "- ")
+	splName := strings.Split(name, "-")
+
 	if len(splName) > 1 {
-		text1 := strings.Split(splName[1], ".")
-		if len(text1) > 1 {
-			return nameNormalized(splName[0])
+		splText := strings.Split(strings.TrimSpace(splName[1]), ".")
+
+		if len(splText) >= 1 {
+			return strings.TrimSpace(nameNormalized(splText[0]))
 		} else {
-			return nameNormalized(splName[1])
+			return strings.TrimSpace(nameNormalized(splText[1]))
 		}
 	} else {
-		return nameNormalized(name)
+		return strings.TrimSpace(nameNormalized(name))
 	}
 }
 

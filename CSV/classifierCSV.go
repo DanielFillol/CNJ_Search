@@ -5,15 +5,15 @@ import (
 	"github.com/Darklabel91/LegalDoc_Classifier/Classifier"
 )
 
-// LegalDocumentCSV creates a csv with every single row with LegalDocument
+// LegalDocumentCSV creates a csv with every single row with SearchCNJ
 //from a given raw file and separator rune in a given folder
-func LegalDocumentCSV(rawFilePath string, separator rune, nameResultFolder string) error {
+func LegalDocumentCSV(rawFilePath string, separator rune, nameResultFolder string, searchType int) error {
 	raw, err := readCsvFile(rawFilePath, separator)
 	if err != nil {
 		return err
 	}
 
-	err = createCSVs(raw, nameResultFolder)
+	err = createCSVs(raw, nameResultFolder, searchType)
 	if err != nil {
 		return err
 	}
@@ -23,11 +23,21 @@ func LegalDocumentCSV(rawFilePath string, separator rune, nameResultFolder strin
 }
 
 //execute the AnalyzeCNJ from a []string
-func createCSVs(raw []string, nameResultFolder string) error {
+func createCSVs(raw []string, nameResultFolder string, searchType int) error {
 	var final []Classifier.FinalData
-	for i := 0; i < len(raw); i++ {
-		emp, _ := Classifier.LegalDocument(raw[i])
-		final = append(final, emp)
+	for _, search := range raw {
+		data, err := Classifier.SearchCNJ(search, searchType)
+		if err != nil {
+			final = append(final, Classifier.FinalData{
+				SearchName: search,
+				CNJId:      err.Error(),
+				CNJIdUpper: err.Error(),
+				CNJName:    err.Error(),
+				CnjReturn:  nil,
+			})
+		} else {
+			final = append(final, data)
+		}
 	}
 
 	err := writeCSV("filesOK", nameResultFolder, final)

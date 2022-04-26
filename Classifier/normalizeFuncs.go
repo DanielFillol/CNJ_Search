@@ -75,7 +75,7 @@ func isDiverseRequest(docName string) bool {
 }
 
 func isDocument(docName string) bool {
-	example := []string{"documento diverso", "documento"}
+	example := []string{"documento diverso", "documento", "diverso"}
 
 	for _, total := range example {
 		if strings.Contains(strings.ToLower(docName), total) {
@@ -159,7 +159,7 @@ func isInformation(docName string) bool {
 }
 
 func isInitialRequest(docName string) bool {
-	example := []string{"páginas 1 ", "página 1 ", "paginas 1 ", "pagina 1 "}
+	example := []string{"páginas 1 ", "página 1 ", "paginas 1 ", "pagina 1 ", "inicial"}
 
 	for _, total := range example {
 		if strings.Contains(strings.ToLower(docName), total) {
