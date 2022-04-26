@@ -1,44 +1,28 @@
 package Classifier
 
 import (
-	"errors"
 	"github.com/Darklabel91/LegalDoc_Classifier/Database"
 	"strings"
 )
 
-//getCNJDocument returns FoundCNJ for a search string.
-//  searchType must be 0 or 1
-//	0: searches the document cnj table
-//  1: searches the subject cnj table
+//getCNJDocument returns FoundCNJ for a search string. returns error when no CNJ is founded in the search
 func getCNJDocument(normalizedSearchName string, searchType int) (FoundCNJ, error) {
-
-	var dataCNJ []Database.CNJ
-	if searchType != 1 {
-		dataCNJ = Database.DataSetCNJDocument()
-	} else {
-		dataCNJ = Database.DataSetCNJsubject()
+	cnjFetched, err := Database.FetchCNJ(normalizedSearchName, searchType)
+	if err != nil {
+		return FoundCNJ{}, err
 	}
 
 	var foundCNJ []CNJ
-	for _, singleCNJ := range dataCNJ {
-		if strings.Contains(strings.ToLower(normalizedSearchName), strings.ToLower(singleCNJ.Name)) {
-			foundCNJ = append(foundCNJ, CNJ{
-				IdItem:      singleCNJ.IdItem,
-				IdItemUpper: singleCNJ.IdItemUpper,
-				Name:        singleCNJ.Name,
-			})
-		}
+	for _, cnj := range cnjFetched {
+		foundCNJ = append(foundCNJ, CNJ{IdItem: cnj.IdItem, IdItemUpper: cnj.IdItemUpper, Name: cnj.Name})
 	}
 
-	if len(foundCNJ) != 0 {
-		bestCNJ := getBestCNJ(normalizedSearchName, foundCNJ)
-		return FoundCNJ{
-			BestCNJ: bestCNJ,
-			CNJs:    foundCNJ,
-		}, nil
-	} else {
-		return FoundCNJ{}, errors.New("impossible to find a cnj code for this document name")
-	}
+	bestCNJ := getBestCNJ(normalizedSearchName, foundCNJ)
+
+	return FoundCNJ{
+		BestCNJ: bestCNJ,
+		CNJs:    foundCNJ,
+	}, nil
 }
 
 //getBestCNJ returns a single CNJ with the best match for the search string

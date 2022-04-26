@@ -22,7 +22,7 @@ func LegalDocumentCSV(rawFilePath string, separator rune, nameResultFolder strin
 	return nil
 }
 
-//execute the AnalyzeCNJ from a []string
+//execute the SearchCNJ from a []string
 func createCSVs(raw []string, nameResultFolder string, searchType int) error {
 	var final []Classifier.FinalData
 	for _, search := range raw {

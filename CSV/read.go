@@ -5,7 +5,7 @@ import (
 	"os"
 )
 
-//ReadCsvFile reads a csv file from a given path
+//readCsvFile reads a csv file from a given path
 // the csv must contain only one colum with the cnj number and no header
 func readCsvFile(filePath string, separator rune) ([]string, error) {
 	csvFile, err := os.Open(filePath)

@@ -42,7 +42,7 @@ func normalizeDocName(docName string) string {
 	}
 }
 
-//verify if document name is a Page and not an Initial Requirement
+//Verify isPage and isInitialRequest if the first is true but the second is false a new string to search is needed.
 func pageAndNotInitial(spltName string) bool {
 	if isPage(spltName) == true && isInitialRequest(spltName) == false {
 		return true
@@ -67,7 +67,7 @@ func getNormalizeName(name string) string {
 	}
 }
 
-//return 1 of 23 possible normalized document names
+//Return 1 of 23 possible normalized document names
 func nameNormalized(docName string) string {
 	if isInitialRequest(docName) {
 		return InitialRequest
