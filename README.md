@@ -5,20 +5,19 @@ Projeto pensado para classificar tipos de documentos dos Tribunais de Justiça b
 ``` go get -u github.com/Darklabel91/LegalDoc_Classifier ```
 
 ## Data Struct
-Os dados de retorno podem ser ```bool```, ```string```, ```FinalData``` ou ```CNJArray```, essas últimas são compostas por:
+Os dados de retorno podem ser ```bool```, ```string```, ```FinalData``` ou ```CNJ```, essas últimas são compostas por:
 
 ``` 
 type FinalData struct {
-	Id         string     `json:"Id,omitempty"`
-	SearchName string     `json:"SearchName,omitempty"`
-	CNJId      string     `json:"CNJId,omitempty"`
-	CNJIdUpper string     `json:"CNJIdUpper,omitempty"`
-	CNJName    string     `json:"CNJName,omitempty"`
-	CnjReturn  []CNJArray `json:"CnjReturn,omitempty"`
+	SearchName string `json:"SearchName,omitempty"`
+	CNJId      string `json:"CNJId,omitempty"`
+	CNJIdUpper string `json:"CNJIdUpper,omitempty"`
+	CNJName    string `json:"CNJName,omitempty"`
+	CnjReturn  []CNJ  `json:"CnjReturn,omitempty"`
 }
 
-type CNJArray struct {
-	SearchName  string `json:"SearchName,omitempty"`
+
+type CNJ struct {
 	IdItem      string `json:"IdItem,omitempty"`
 	IdItemUpper string `json:"IdItemUpper,omitempty"`
 	Name        string `json:"Name,omitempty"`
@@ -26,15 +25,13 @@ type CNJArray struct {
 
 ```
 ### FinalData
-- Id: Um identificador. É recomendado que seja associado um número de processo no formato CNJ para facilitar o cruzamento de dados
-- DocName: Nome do arquivo para ser classificado conforme o CNJ
+- SearchName: Nome do arquivo para ser classificado conforme o CNJ
 - CNJId: Identificador do Código CNJ específico
 - CNJIdUpper: Identificador do Código Pai do CNJ específico
 - CNJName: Classificação do CNJ
-- CnjReturn: Conjunto de dados com a estrutura ```CNJArray``` com todos os códigos CNJ encontrados
+- CnjReturn: Conjunto de dados com a estrutura ```CNJ``` com todos os códigos CNJ encontrados
 
-### CNJArray
-- DocName: Nome do arquivo para ser classificado conforme o CNJ
+### CNJ
 - IdItem: Identificador do Código CNJ específico
 - IdItemUpper: Identificador do Código Pai do CNJ específico
 - Name: Classificação do CNJ
@@ -52,42 +49,47 @@ package main
 
 import (
 	"fmt"
-	"github.com/Darklabel91/LegalDoc_Classifier"
+	"github.com/Darklabel91/LegalDoc_Classifier/CSV"
+	"github.com/Darklabel91/LegalDoc_Classifier/Classifier"
 )
 
 func main() {
-	// searchType: 0 for Document search and 1 for subject search
-	var searchType int
 
-	id := "0"
-	fileName := "Petição Inicial.pdf"
-	searchType = 0
+	//Search document name on CNJ document table
+	documentName := "7b00616 - Recurso de Revista.pdf"
 
-	test, status := LegalDoc_Classifier.DocClassifier(id, fileName, searchType)
+	docClass, err := Classifier.SearchCNJ(documentName, 0)
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println(docClass)
 
-	fmt.Println(status)
-	fmt.Println(test.Id, test.SearchName, test.CNJId, test.CNJIdUpper, test.CNJName)
-	fmt.Println(test.CnjReturn)
+	//Search subject name on CNJ subject table
+	subjectSearch := "plano de saúde"
 
-	//READING A CSV WITH FILE NAMES
+	subjClass, err := Classifier.SearchCNJ(subjectSearch, 1)
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println(subjClass)
 
-	rawPath := "/Users/Desktop/tjFiles.csv"
+	//CSV search document example
+	raw := "CSV/testDocuments.csv"
 	separator := ','
-	resultFolder := "Result"
-	searchType = 0
+	resultFolder := "Test"
 
-	err := LegalDoc_Classifier.DocClassifierCSV(rawPath, separator, resultFolder, searchType)
+	err = CSV.LegalDocumentCSV(raw, separator, resultFolder, 0)
 	if err != nil {
 		fmt.Println(err)
 	}
 }
-
  ```
 Retorno
 ``` 
-success
-0 Petição Inicial.pdf 37 3 Petição
-[{Petição Inicial.pdf 37 3 Petição} {Petição Inicial.pdf 202 37 Petição Inicial}]
+{7b00616 - Recurso de Revista.pdf 233 48 Recurso de Revista [{48 3 Recurso} {233 48 Recurso de Revista}]}
+
+{plano de saúde 2364 2581 Plano de Saúde [{2364 2581 Plano de Saúde} {10064 10028 Saúde}]}
+
 Files created
 
  ```
@@ -95,17 +97,10 @@ Files created
 ## Functions
 
 ### Main Function:
-- DocClassifier(identifier string, fileName string, searchType int)  ->  retorna uma *FinalData* necessitantando de um identificador, do nome do arquivo a ser classificado e do tipo *searchType*
-- DocClassifierCSV(rawFilePath string, separator rune, nameResultFolder string, searchType int) -> retorna dois arquivos .CSV
- necessitando apenas do caminho do arquivo a ser analisado, o separador (';' ',' etc..) de colunas, o nome da pasta em que os resultados devem ser salvos e do tipo *searchType*
- O arquivo a ser analisado deve ter duas colunas {id, fileName/SearchString}
+- SearchCNJ(searchString string, searchType int)  ->  retorna uma *FinalData* necessitantando de um identificador, do nome do arquivo a ser classificado e do tipo *searchType*
+- LegalDocumentCSV(rawFilePath string, separator rune, nameResultFolder string, searchType int)  -> retorna dois arquivos .CSV
+ necessitando apenas do caminho do arquivo a ser analisado, o separador (';' ',' etc..) de colunas, o nome da pasta em que os resultados devem ser salvos e do tipo *searchType* O arquivo a ser analisado deve ter duas colunas {id, fileName/SearchString}
  
-### Suport Functions:
-- newName(docName string) -> retorna o nome normalizado como *string*. Para ser efetiva essa função faz uso de outras 24 funções que retornam *bool* para cada tipo de documento mapeado (apontadas abaixo)
-- SplitName(docName string) -> retorna uma *string* como o nome normalizado que deve ser pesquisado na tabela CNJ. Para normalizar o nome é utilizada a função acima.
-- findBestCNJ(docNameSplit string, dataCNJ []Structs.CNJArray) -> retorna *cnjId*, *cnjIdUppe* e *cnjName*, necessitando do nome do arquivo a ser classificado (já normalizado) e uma *CNJArray*
-- ReturnCNJ(docNameSplit string, data []Structs.DocumentCNJ) -> retorna uma *CNJArray*, *BestCNJ*(faz uso da função mencionada acima) e *status*, necessitantando do nome do arquivo a ser classificado e o conjunto de dados do CNJ. 
-
 ### Define Docment Functions:
 - IsAssetsToPledge(docName string)       ->  retorna true para um documento *Pedido de Penhora*
 - IsBacen(docName string)                ->  retorna true para um documento *Sisbajud*
