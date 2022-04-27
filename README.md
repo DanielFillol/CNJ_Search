@@ -122,9 +122,9 @@ files created.
 ## Functions
 
 ### Main Function:
-- SearchCNJ(searchString string, searchType int)  ->  retorna uma *FinalData* necessitantando apenas da string de pesquisa e do *searchType*
+- SearchCNJ(searchString string, databaseType rune)  ->  retorna uma *FinalData* necessitantando da chave de pesquisa tipo rune *databaseType*
 
-- LegalDocumentCSV(rawFilePath string, separator rune, nameResultFolder string, searchType int)  -> retorna um csv necessitando do caminho do arquivo a ser analisado, o separador de colunas (';' ',' etc..), o nome da pasta em que os resultados devem ser salvos e o *searchType*. O csv a ser analisado deve conter apenas uma coluna, sem títulos.
+- SearchCNJCSV(rawFilePath string, separator rune, nameResultFolder string, databaseType rune) -> retorna um csv necessitando do caminho do arquivo a ser analisado, o separador de colunas (';' ',' etc..), o nome da pasta em que os resultados devem ser salvos e o *databaseType*. O csv a ser analisado deve conter apenas uma coluna, sem títulos.
 
 
 ## Disclaimer
