@@ -6,8 +6,8 @@ import (
 )
 
 //getCNJDocument returns FoundCNJ for a search string. returns error when no CNJ is founded in the search
-func getCNJDocument(normalizedSearchName string, searchType int) (FoundCNJ, error) {
-	cnjFetched, err := ClassifierDatabase.FetchCNJ(normalizedSearchName, searchType)
+func getCNJDocument(normalizedSearchName string, databaseType rune) (FoundCNJ, error) {
+	cnjFetched, err := ClassifierDatabase.FetchCNJ(normalizedSearchName, databaseType)
 	if err != nil {
 		return FoundCNJ{}, err
 	}

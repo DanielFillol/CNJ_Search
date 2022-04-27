@@ -7,13 +7,13 @@ import (
 
 // LegalDocumentCSV creates a csv with every single row with SearchCNJ
 //from a given raw file and separator rune in a given folder
-func LegalDocumentCSV(rawFilePath string, separator rune, nameResultFolder string, searchType int) error {
+func LegalDocumentCSV(rawFilePath string, separator rune, nameResultFolder string, databaseType rune) error {
 	raw, err := readCsvFile(rawFilePath, separator)
 	if err != nil {
 		return err
 	}
 
-	err = createCSVs(raw, nameResultFolder, searchType)
+	err = createCSVs(raw, nameResultFolder, databaseType)
 	if err != nil {
 		return err
 	}
@@ -23,10 +23,10 @@ func LegalDocumentCSV(rawFilePath string, separator rune, nameResultFolder strin
 }
 
 //execute the SearchCNJ from a []string
-func createCSVs(raw []string, nameResultFolder string, searchType int) error {
+func createCSVs(raw []string, nameResultFolder string, databaseType rune) error {
 	var final []Classifier.FinalData
 	for _, search := range raw {
-		data, err := Classifier.SearchCNJ(search, searchType)
+		data, err := Classifier.SearchCNJ(search, databaseType)
 		if err != nil {
 			final = append(final, Classifier.FinalData{
 				SearchName: search,
