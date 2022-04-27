@@ -13,11 +13,11 @@ package ClassifierDatabase
 //    - 'A' for iten's still being used for CNJ
 //    - 'I' for iten's there are no longer used by CNJ
 type CNJData struct {
-	IdItem      string
-	IdItemUpper string
-	Type        rune
-	Name        string
-	Status      rune
+	IdItem      string `json:"id_item,omitempty"`
+	IdItemUpper string `json:"id_item_upper,omitempty"`
+	Type        rune   `json:"type,omitempty"`
+	Name        string `json:"name,omitempty"`
+	Status      rune   `json:"status,omitempty"`
 }
 
 //docCNJDatabase database containing all CNJData document information
