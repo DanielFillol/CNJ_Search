@@ -1,5 +1,5 @@
 # CNJ_Search
-Projeto pensado para classificar tipos de documentos dos Tribunais de Justiça brasileiro conforme a padronização CNJ de classificação. Além disso também permite a pesquisa de qualquer texto com a tabela de assuntos na padronização CNJ.
+Projeto nasceu da proposta de encontar uma classificação CNJ para os arquivos em pdf protocolados nos tribunais de justiça de todo o país. O projeto evoluíou e agora é possível realizar a busca por qualquer termo dentro da base de dados do CNJ.
 
 ## Instal
 ``` go get -u github.com/Darklabel91/LegalDoc_Classifier ```
@@ -37,10 +37,12 @@ type CNJ struct {
 - Name: Classificação do CNJ
 
 
-### searchType
-searchType é um número inteiro passado para as funções *main* com o objetivo de selecionar qual tabela será pesquisada sendo:
-- 0 -> tabela CNJ de Documentos
-- 1 -> tabela CNJ de Assuntos
+### databaseType
+É a chave de pesquisa em formato *rune* entre os 4 bancos CNJ possíveis sendo:
+- 'D' acessa o banco de Documentos
+- 'M' acessa o banco de Movimentos
+- 'C' acessa o banco de Classes
+- 'A' acessa o banco de Assuntos
 
 ## Example
 
