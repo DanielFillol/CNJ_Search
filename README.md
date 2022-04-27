@@ -56,22 +56,40 @@ import (
 func main() {
 
 	//Search document name on CNJ document table
-	documentName := "7b00616 - Recurso de Revista.pdf"
+	search := "7b00616 - Recurso de Revista.pdf"
 
-	docClass, err := Classifier.SearchCNJ(documentName, 0)
+	found, err := Classifier.SearchCNJ(search, 'D')
 	if err != nil {
 		fmt.Println(err)
 	}
-	fmt.Println(docClass)
+	fmt.Println(found)
+
+	//Search movement name on CNJ movement table
+	search = "prisão"
+
+	found, err = Classifier.SearchCNJ(search, 'M')
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println(found)
+
+	//--//Search movement name on CNJ movement table
+	search = "Embargos à Arrematação"
+
+	found, err = Classifier.SearchCNJ(search, 'C')
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println(found)
 
 	//Search subject name on CNJ subject table
-	subjectSearch := "plano de saúde"
+	search = "plano de saúde"
 
-	subjClass, err := Classifier.SearchCNJ(subjectSearch, 1)
+	found, err = Classifier.SearchCNJ(search, 'A')
 	if err != nil {
 		fmt.Println(err)
 	}
-	fmt.Println(subjClass)
+	fmt.Println(found)
 
 	//CSV search document example
 	raw := "CSV/testDocuments.csv"
@@ -83,14 +101,19 @@ func main() {
 		fmt.Println(err)
 	}
 }
+
  ```
 Retorno
 ``` 
 {7b00616 - Recurso de Revista.pdf 233 48 Recurso de Revista [{48 3 Recurso} {233 48 Recurso de Revista}]}
 
-{plano de saúde 2364 2581 Plano de Saúde [{2364 2581 Plano de Saúde} {10064 10028 Saúde}]}
+{prisão 128 157 Prisão [{128 157 Prisão}]}
 
-Files created
+{Embargos à Arrematação 171 169 Embargos à Arrematação [{207 197 Embargos} {1006 1071 Embargos} {169 158 Embargos} {171 169 Embargos à Arrematação}]}
+
+{plano de saúde 2364 2581 Plano de Saúde [{2364 2581 Plano de Saúde} {10064 10028 Saúde} {13853 13831 Plano de Saúde}]}
+
+files created.
 
  ```
 
