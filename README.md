@@ -1,4 +1,4 @@
-# LegalDoc_Classifier
+# CNJ_Search
 Projeto pensado para classificar tipos de documentos dos Tribunais de Justiça brasileiro conforme a padronização CNJ de classificação. Além disso também permite a pesquisa de qualquer texto com a tabela de assuntos na padronização CNJ.
 
 ## Instal
