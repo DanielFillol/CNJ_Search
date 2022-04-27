@@ -1,8 +1,8 @@
 package Test
 
 import (
-	"github.com/Darklabel91/LegalDoc_Classifier/CSV"
 	"github.com/Darklabel91/LegalDoc_Classifier/Classifier"
+	"github.com/Darklabel91/LegalDoc_Classifier/ClassifierCSV"
 	"reflect"
 	"testing"
 )
@@ -50,7 +50,7 @@ func TestLegalDocumentCSV(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if err := CSV.LegalDocumentCSV(tt.args.rawFilePath, tt.args.separator, tt.args.nameResultFolder, tt.args.searchType); (err != nil) != tt.wantErr {
+			if err := ClassifierCSV.LegalDocumentCSV(tt.args.rawFilePath, tt.args.separator, tt.args.nameResultFolder, tt.args.searchType); (err != nil) != tt.wantErr {
 				t.Errorf("LegalDocumentCSV() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})

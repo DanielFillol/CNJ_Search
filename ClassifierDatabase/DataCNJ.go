@@ -1,4 +1,4 @@
-package Database
+package ClassifierDatabase
 
 import (
 	"errors"

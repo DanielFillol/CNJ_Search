@@ -1,13 +1,13 @@
 package Classifier
 
 import (
-	"github.com/Darklabel91/LegalDoc_Classifier/Database"
+	"github.com/Darklabel91/LegalDoc_Classifier/ClassifierDatabase"
 	"strings"
 )
 
 //getCNJDocument returns FoundCNJ for a search string. returns error when no CNJ is founded in the search
 func getCNJDocument(normalizedSearchName string, searchType int) (FoundCNJ, error) {
-	cnjFetched, err := Database.FetchCNJ(normalizedSearchName, searchType)
+	cnjFetched, err := ClassifierDatabase.FetchCNJ(normalizedSearchName, searchType)
 	if err != nil {
 		return FoundCNJ{}, err
 	}

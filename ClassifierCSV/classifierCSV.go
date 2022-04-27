@@ -1,4 +1,4 @@
-package CSV
+package ClassifierCSV
 
 import (
 	"fmt"
