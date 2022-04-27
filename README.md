@@ -97,35 +97,9 @@ Files created
 ## Functions
 
 ### Main Function:
-- SearchCNJ(searchString string, searchType int)  ->  retorna uma *FinalData* necessitantando de um identificador, do nome do arquivo a ser classificado e do tipo *searchType*
-- LegalDocumentCSV(rawFilePath string, separator rune, nameResultFolder string, searchType int)  -> retorna dois arquivos .CSV
- necessitando apenas do caminho do arquivo a ser analisado, o separador (';' ',' etc..) de colunas, o nome da pasta em que os resultados devem ser salvos e do tipo *searchType* O arquivo a ser analisado deve ter duas colunas {id, fileName/SearchString}
- 
-### Define Docment Functions:
-- IsAssetsToPledge(docName string)       ->  retorna true para um documento *Pedido de Penhora*
-- IsBacen(docName string)                ->  retorna true para um documento *Sisbajud*
-- IsCertificate(docName string)          ->  retorna true para um documento *Certidão*
-- IsCounterarguments(docName string)     ->  retorna true para um documento *Contrarrazões da Apelação*
-- IsDiverseMiddleRequest(docName string) ->  retorna true para um documento *Petição Intermediária*
-- IsDiverseRequest(docName string)       ->  retorna true para um documento *Petição (Outras)* 
-- IsDocument(docName string)             ->  retorna true para um documento *Documentos Diversos*
-- IsExpertClarification(docName string)  ->  retorna true para um documento *Esclarecimento de Perito*
-- IsExpertFees(docName string)           ->  retorna true para um documento *Solicitação de Honorários de Perito* 
-- IsExpertProof(docName string)          ->  retorna true para um documento *Agendamento de Vistoria - Prova Pericial - Art. 474 do CPC*
-- IsExpertsManifestation(docName string) ->  retorna true para um documento *Manifestação do Perito*
-- IsHearingRequest(docName string)       ->  retorna true para um documento *Pedido de Designação/Redesignação de Audiência*
-- IsInformation(docName string)          ->  retorna true para um documento *Informação* 
-- IsInitialRequest(docName string)       ->  retorna true para um documento *Petição Inicial*
-- IsInitialRequestEmd(docName string)    ->  retorna true para um documento *Emenda à Inicial*
-- IsLetterOfAttorney(docName string)     ->  retorna true para um documento *Instrumento de Procuração*
-- IsMemorial(docName string)             ->  retorna true para um documento *Memoriais*
-- IsPrepositonLetter(docName string)     ->  retorna true para um documento *Pedido*
-- IsProof(docName string)                ->  retorna true para um documento *Elementos de prova*
-- IsProofOfResidence(docName string)     ->  retorna true para um documento *Comprovante de Endereço*
-- IsQualificationRequest(docName string) ->  retorna true para um documento *Pedido de Habilitação*
-- IsReplacementRequest(docName string)   ->  retorna true para um documento *Instrumento de Procuração*
-- IsReplica(docName string)              ->  retorna true para um documento *Réplica*
-- IsRequirements(docName string)         ->  retorna true para um documento *Apresentação de Quesitos/Indicação de Assistente Técnico*
+- SearchCNJ(searchString string, searchType int)  ->  retorna uma *FinalData* necessitantando apenas da string de pesquisa e do *searchType*
+
+- LegalDocumentCSV(rawFilePath string, separator rune, nameResultFolder string, searchType int)  -> retorna um csv necessitando do caminho do arquivo a ser analisado, o separador de colunas (';' ',' etc..), o nome da pasta em que os resultados devem ser salvos e o *searchType*. O csv a ser analisado deve conter apenas uma coluna, sem títulos.
 
 
 ## Disclaimer
