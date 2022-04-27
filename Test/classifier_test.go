@@ -10,7 +10,7 @@ import (
 func TestSearchCNJ(t *testing.T) {
 	type args struct {
 		searchString string
-		searchType   int
+		searchType   rune
 	}
 	tests := []struct {
 		name    string
@@ -39,7 +39,7 @@ func TestLegalDocumentCSV(t *testing.T) {
 		rawFilePath      string
 		separator        rune
 		nameResultFolder string
-		searchType       int
+		searchType       rune
 	}
 	tests := []struct {
 		name    string

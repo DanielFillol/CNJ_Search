@@ -25,13 +25,15 @@ type CNJ struct {
 }
 
 //SearchCNJ mains project function, returns FinalData,
-//need's string to search and int (0 or 1):
-//  0: search's the cnj document database
-//  1: search's the cnj subject database
-func SearchCNJ(searchString string, searchType int) (FinalData, error) {
+//need's string to search and databaseType, the last is a rune and must be:
+//   - 'D' for data classified as Documents
+//   - 'M' for data classified as Movements
+//   - 'C' for data classified as Class
+//   - 'A' for data classified as Subjects
+func SearchCNJ(searchString string, databaseType rune) (FinalData, error) {
 	nlzDocName := normalizeDocName(strings.TrimSpace(searchString))
 
-	foundCnj, err := getCNJDocument(nlzDocName, searchType)
+	foundCnj, err := getCNJDocument(nlzDocName, databaseType)
 	if err != nil {
 		return FinalData{}, err
 	}
