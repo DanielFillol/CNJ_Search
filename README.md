@@ -49,8 +49,8 @@ package main
 
 import (
 	"fmt"
-	"github.com/Darklabel91/LegalDoc_Classifier/CSV"
 	"github.com/Darklabel91/LegalDoc_Classifier/Classifier"
+	"github.com/Darklabel91/LegalDoc_Classifier/ClassifierCSV"
 )
 
 func main() {
@@ -78,7 +78,7 @@ func main() {
 	separator := ','
 	resultFolder := "Test"
 
-	err = CSV.LegalDocumentCSV(raw, separator, resultFolder, 0)
+	err = ClassifierCSV.LegalDocumentCSV(raw, separator, resultFolder, 0)
 	if err != nil {
 		fmt.Println(err)
 	}
