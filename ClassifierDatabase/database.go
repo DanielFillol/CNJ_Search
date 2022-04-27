@@ -11,7 +11,7 @@ package ClassifierDatabase
 //    name: the name of CNJ category
 //    status: the item status:
 //    - 'A' for iten's still being used for CNJ
-//    - 'I' for iten's there are no longer used by CNJ
+//    - 'I' for iten's there are no longer used by cnj
 type CNJData struct {
 	IdItem      string `json:"id_item,omitempty"`
 	IdItemUpper string `json:"id_item_upper,omitempty"`
