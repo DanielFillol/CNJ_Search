@@ -74,7 +74,7 @@ func main() {
 	}
 	fmt.Println(found)
 
-	//--//Search movement name on CNJ movement table
+	//Search Class name on CNJ movement table
 	search = "Embargos à Arrematação"
 
 	found, err = Classifier.SearchCNJ(search, 'C')
